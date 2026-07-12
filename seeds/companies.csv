@@ -1,0 +1,9 @@
+company_id,company_name,sector,country,base_year
+CO-01,Company A,Industrial manufacturing,Germany,2019
+CO-02,Company B,Food & beverage,France,2019
+CO-03,Company C,Transport & logistics,Netherlands,2019
+CO-04,Company D,Retail,Spain,2019
+CO-05,Company E,Technology,United Kingdom,2019
+CO-06,Company F,Construction & buildings,France,2019
+CO-07,Company G,Pharmaceuticals,Germany,2019
+CO-08,Company H,Energy & utilities,United States,2019

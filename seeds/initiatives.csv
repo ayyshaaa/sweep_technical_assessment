@@ -1,0 +1,46 @@
+initiative_id,company_id,target_id,initiative_name,lever_category,group_type,parent_group_id,start_year,end_year,status,estimated_reduction,unit
+INI-0007,CO-02,TGT-002,Waste reduction programme 2,Waste reduction,standard,,2022,2030,in_progress,19243.4,tCO2e
+INI-0028,CO-07,TGT-007,Logistics optimization programme 2,Logistics optimization,standard,,2024,2030,in_progress,22024.8,tCO2e
+INI-0015,CO-04,TGT-004,Logistics optimization programme 3,Logistics optimization,standard,,2022,2026,completed,1707.0,tCO2e
+INI-0031,CO-08,TGT-008,Fleet electrification programme 1,Fleet electrification,standard,,2023,2026,in_progress,3768.8,tCO2e
+INI-0030,CO-07,TGT-007,Energy efficiency programme 4,Energy efficiency,standard,,2023,2028,completed,10889.1,tCO2e
+INI-0013,CO-04,TGT-004,Fleet electrification programme 1,Fleet electrification,standard,,2023,2028,completed,988.9,tCO2e
+INI-0020,CO-05,TGT-005,Renewable electricity programme 4,Renewable electricity,standard,,2023,2026,in_progress,3012.4,tCO2e
+INI-0029,CO-07,TGT-007,Waste reduction programme 3,Waste reduction,standard,,2022,2030,planned,12853.0,tCO2e
+INI-0001,CO-01,TGT-001,Waste reduction programme 1,Waste reduction,standard,,2024,2028,completed,25398.7,tCO2e
+INI-0041,CO-04,TGT-999,Orphan initiative,Renewable electricity,standard,,2023,2030,planned,4000,tCO2e
+INI-0023,CO-06,TGT-006,Energy efficiency programme 1,Energy efficiency,standard,,2022,2026,in_progress,5463.7,tCO2e
+INI-0009,CO-02,TGT-002,Waste reduction programme 4,Waste reduction,standard,,2022,2026,planned,16747.3,tCO2e
+INI-0025,CO-06,TGT-006,Renewable electricity programme 3,Renewable electricity,standard,,2022,2026,completed,5485.3,tCO2e
+INI-0014,CO-04,TGT-004,Fleet electrification programme 2,Fleet electrification,standard,,2024,2030,planned,1328.5,tCO2e
+INI-0002,CO-01,TGT-001,Fleet electrification programme 2,Fleet electrification,standard,,2021,2028,in_progress,17829.2,tCO2e
+INI-0010,CO-03,TGT-003,Logistics optimization programme 1,Logistics optimization,standard,,2024,2026,in_progress,17526.2,tCO2e
+INI-0004,CO-01,TGT-001,Renewable electricity programme 4,Renewable electricity,standard,,2022,2026,completed,25675.0,tCO2e
+INI-0033,CO-08,TGT-008,Process optimization programme 3,Process optimization,standard,,2022,2030,in_progress,6520.3,tCO2e
+INI-0003,CO-01,TGT-001,Energy efficiency programme 3,Energy efficiency,standard,,2022,2028,in_progress,23851.6,tCO2e
+INI-0005,CO-01,TGT-001,Supplier engagement programme 5,Supplier engagement,standard,,2022,2030,completed,21034600.0,kgCO2e
+INI-0017,CO-05,TGT-005,Supplier engagement programme 1,Supplier engagement,standard,,2022,2028,planned,3230.5,tCO2e
+INI-0006,CO-02,TGT-002,Waste reduction programme 1,Waste reduction,standard,,2023,2026,in_progress,25204.8,tCO2e
+GRP-01,CO-02,TGT-002,Bottom-up group: production sites,Energy efficiency,bottom_up_group,,2022,2028,in_progress,9793.0,tCO2e
+INI-0012,CO-03,TGT-003,Supplier engagement programme 3,Supplier engagement,standard,,2022,2026,completed,29072.6,tCO2e
+INI-0034,CO-08,TGT-008,Process optimization programme 4,Process optimization,standard,,2022,2030,planned,5170.0,tCO2e
+INI-0021,CO-05,TGT-005,Renewable electricity programme 5,Renewable electricity,standard,,2023,2028,in_progress,3510.5,tCO2e
+INI-0008,CO-02,TGT-002,Renewable electricity programme 3,Renewable electricity,standard,,2022,2030,in_progress,11421.5,tCO2e
+INI-0016,CO-04,TGT-004,Logistics optimization programme 4,Logistics optimization,standard,,2021,2030,completed,912.7,tCO2e
+INI-0018,CO-05,TGT-005,Renewable electricity programme 2,Renewable electricity,standard,,2022,2030,in_progress,2782.0,tCO2e
+INI-0039,CO-02,TGT-002,Site 3 efficiency,Energy efficiency,bottom_up_child,GRP-01,2022,2028,in_progress,2496.1,tCO2e
+INI-0038,CO-02,TGT-002,Site 2 efficiency,Energy efficiency,bottom_up_child,GRP-01,2022,2028,in_progress,3852.1,tCO2e
+INI-0035,CO-08,TGT-008,Energy efficiency programme 5,Energy efficiency,standard,,2021,2026,in_progress,4609800.0,kgCO2e
+INI-0036,CO-08,TGT-008,Supplier engagement programme 6,Supplier engagement,standard,,2023,2028,planned,6303600.0,kgCO2e
+INI-0027,CO-07,TGT-007,Supplier engagement programme 1,Supplier engagement,standard,,2024,2028,completed,17460.5,tCO2e
+INI-0024,CO-06,TGT-006,Waste reduction programme 2,Waste reduction,standard,,2024,2030,planned,4032.4,tCO2e
+INI-0019,CO-05,TGT-005,Supplier engagement programme 3,Supplier engagement,standard,,2023,2028,completed,3491.2,tCO2e
+INI-0037,CO-02,TGT-002,Site 1 efficiency,Energy efficiency,bottom_up_child,GRP-01,2022,2028,in_progress,3444.8,tCO2e
+INI-0032,CO-08,TGT-008,Process optimization programme 2,Process optimization,standard,,2023,2030,in_progress,4139.3,tCO2e
+INI-0022,CO-05,TGT-005,Logistics optimization programme 6,Logistics optimization,standard,,2023,2028,completed,2252.3,tCO2e
+INI-0040,CO-05,TGT-005,Large offset programme,Supplier engagement,standard,,2023,2030,planned,119830.0,tCO2e
+INI-0036,CO-08,TGT-008,Supplier engagement programme 6,Supplier engagement,standard,,2023,2028,planned,6303600.0,kgCO2e
+INI-0013,CO-04,TGT-004,Fleet electrification programme 1,Fleet electrification,standard,,2023,2028,completed,988.9,tCO2e
+INI-0011,CO-03,TGT-003,Energy efficiency programme 2,Energy efficiency,standard,,2024,2026,planned,34901.0,tCO2e
+INI-0026,CO-06,TGT-006,Renewable electricity programme 4,Renewable electricity,standard,,2023,2028,in_progress,6625.2,tCO2e
+INI-0035,CO-08,TGT-008,Energy efficiency programme 5,Energy efficiency,standard,,2021,2026,in_progress,4609800.0,kgCO2e

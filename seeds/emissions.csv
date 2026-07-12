@@ -1,0 +1,479 @@
+company_id,year,scope,category,emissions_tco2e,unit
+CO-04,2019,3,Upstream transport,11548.3,tCO2e
+CO-04,2021,1,Mobile combustion,2154.7,tCO2e
+CO-05,2022,3,Business travel,103218.1,tCO2e
+CO-08,2023,3,Business travel,102797.0,tCO2e
+CO-04,2024,1,Mobile combustion,2066.3,tCO2e
+CO-02,2020,3,Purchased goods & services,274568.1,tCO2e
+CO-02,2020,3,Waste,361931.7,tCO2e
+CO-04,2020,3,Purchased goods & services,12246.5,tCO2e
+CO-05,2020,1,Process emissions,12340.6,tCO2e
+CO-06,2024,1,Fugitive emissions,35707.3,tCO2e
+CO-03,2023,3,Waste,127135.5,tCO2e
+CO-03,2019,3,Purchased goods & services,163334.5,tCO2e
+CO-07,2023,2,Purchased electricity,74824.3,tCO2e
+CO-08,2020,1,Fugitive emissions,14385.6,tCO2e
+CO-05,2020,1,Stationary combustion,5168.9,tCO2e
+CO-02,2021,1,Mobile combustion,30802.0,tCO2e
+CO-07,2022,1,Process emissions,18815.9,tCO2e
+CO-06,2021,2,Purchased heat & steam,34937.8,tCO2e
+CO-07,2020,2,Purchased electricity,90736.8,tCO2e
+CO-04,2020,3,Upstream transport,12046.6,tCO2e
+CO-01,2023,1,Process emissions,19930.2,tCO2e
+CO-02,2019,1,Stationary combustion,32680.7,tCO2e
+CO-06,2019,1,Stationary combustion,29265.3,tCO2e
+CO-04,2020,2,Purchased heat & steam,7671.8,tCO2e
+CO-03,2019,3,Waste,159111.4,tCO2e
+CO-07,2023,3,Waste,158331.7,tCO2e
+CO-08,2024,3,Upstream transport,84540.6,tCO2e
+CO-01,2019,1,Stationary combustion,40637.6,tCO2e
+CO-02,2022,3,Business travel,235597.6,tCO2e
+CO-08,2020,1,Process emissions,9465.2,tCO2e
+CO-07,2022,1,Fugitive emissions,11890.8,tCO2e
+CO-08,2023,1,Process emissions,8520.8,tCO2e
+CO-07,2024,1,Process emissions,18565.7,tCO2e
+CO-05,2019,3,Waste,63247.0,tCO2e
+CO-04,2024,1,Fugitive emissions,1769.6,tCO2e
+CO-08,2021,3,Business travel,92390.6,tCO2e
+CO-03,2022,3,Purchased goods & services,151762.0,tCO2e
+CO-04,2022,2,Purchased heat & steam,7125.9,tCO2e
+CO-03,2022,3,Upstream transport,127896.5,tCO2e
+CO-05,2024,2,Purchased electricity,20881.5,tCO2e
+CO-07,2021,1,Stationary combustion,15044.1,tCO2e
+CO-03,2024,3,Waste,124518.2,tCO2e
+CO-04,2022,1,Stationary combustion,1939.8,tCO2e
+CO-05,2019,1,Fugitive emissions,7516.5,tCO2e
+CO-07,2024,2,Purchased electricity,67696.1,tCO2e
+CO-07,2019,3,Upstream transport,172740.2,tCO2e
+CO-07,2019,1,Fugitive emissions,12391.5,tCO2e
+CO-08,2024,1,Process emissions,8604.9,tCO2e
+CO-08,2020,1,Stationary combustion,13646.2,tCO2e
+CO-08,2022,3,business travel,98411.5,tCO2e
+CO-08,2022,3,Waste,41322.4,tCO2e
+CO-08,2019,1,Fugitive emissions,14068.4,tCO2e
+CO-01,2020,1,Fugitive emissions,42589.7,tCO2e
+CO-06,2022,1,Process emissions,20018.1,tCO2e
+CO-02,2023,3,Waste,296039.0,tCO2e
+CO-05,2023,3,Waste,49005.0,tCO2e
+CO-04,2020,1,Mobile combustion,2342.0,tCO2e
+CO-03,2024,2,Purchased electricity,33824.1,tCO2e
+CO-06,2022,2,Purchased heat & steam,34316.5,tCO2e
+CO-07,2019,1,Stationary combustion,16088.1,tCO2e
+CO-01,2019,2,Purchased electricity,68145.6,tCO2e
+CO-03,2023,2,Purchased heat & steam,45995.2,tCO2e
+CO-04,2019,3,Purchased goods & services,12619.9,tCO2e
+CO-08,2023,1,Stationary combustion,12535.0,tCO2e
+CO-07,2019,2,Purchased heat & steam,57666.3,tCO2e
+CO-02,2020,1,Process emissions,41055.8,tCO2e
+CO-05,2020,1,Fugitive emissions,7569.1,tCO2e
+CO-02,2024,1,Fugitive emissions,62744.0,tCO2e
+CO-02,2024,3,Business travel,269584.8,tCO2e
+CO-04,2023,3,Purchased goods & services,12033.3,tCO2e
+CO-08,2022,1,Stationary combustion,12648.7,tCO2e
+CO-06,2024,3,Business travel,130413.3,tCO2e
+CO-07,2024,1,Fugitive emissions,12163.7,tCO2e
+CO-06,2021,1,Fugitive emissions,34030.0,tCO2e
+CO-02,2021,3,Upstream transport,319998.7,tCO2e
+CO-04,2022,1,Mobile combustion,2188.6,tCO2e
+CO-07,2021,3,Upstream transport,178541.8,tCO2e
+CO-05,2022,2,Purchased heat & steam,28241.3,tCO2e
+CO-07,2019,2,Purchased electricity,97799.6,tCO2e
+CO-06,2019,2,Purchased electricity,44642.7,tCO2e
+CO-03,2022,2,Purchased heat & steam,49359.0,tCO2e
+CO-02,2023,3,Upstream transport,325338.9,tCO2e
+CO-03,2021,3,Waste,143454.6,tCO2e
+CO-05,2021,3,Waste,,tCO2e
+CO-06,2020,1,Stationary combustion,29176.0,tCO2e
+CO-03,2023,1,Stationary combustion,,tCO2e
+CO-06,2023,3,Waste,122168.0,tCO2e
+CO-07,2023,3,Upstream transport,184864.2,tCO2e
+CO-04,2019,3,Business travel,14755.7,tCO2e
+CO-03,2022,3,Waste,135612.3,tCO2e
+CO-08,2022,1,Fugitive emissions,14365.6,tCO2e
+CO-08,2023,4,Other,5000.0,tCO2e
+CO-01,2020,1,Process emissions,21186.5,tCO2e
+CO-05,2019,1,Stationary combustion,5373.5,tCO2e
+CO-01,2022,3,Business travel,148227.9,tCO2e
+CO-06,2020,3,Waste,142217.6,tCO2e
+CO-03,2021,3,Upstream transport,131204.8,tCO2e
+CO-08,2023,3,Upstream transport,80247.9,tCO2e
+CO-03,2019,1,Fugitive emissions,24725.8,tCO2e
+CO-03,2019,2,Purchased heat & steam,53725.1,tCO2e
+CO-02,2024,2,Purchased electricity,72137.1,tCO2e
+CO-08,2019,2,purchased electricity,26386.6,tCO2e
+CO-04,2021,1,Process emissions,3332.3,tCO2e
+CO-03,2021,2,Purchased heat & steam,50175.7,tCO2e
+CO-07,2019,1,Process emissions,20032.7,tCO2e
+CO-05,2024,3,Purchased goods & services,,tCO2e
+CO-01,2019,3,Waste,118065.4,tCO2e
+CO-05,2021,2,Purchased heat & steam,29942.7,tCO2e
+CO-01,2023,2,purchased electricity,52699.7,tCO2e
+CO-08,2020,3,Waste,46307.7,tCO2e
+CO-05,2021,3,Business Travel,99573.8,tCO2e
+CO-07,2024,3,Waste,152641.5,tCO2e
+CO-01,2020,3,Purchased goods & services,-119027.0,tCO2e
+CO-01,2021,3,Business Travel,141626.3,tCO2e
+CO-01,2023,3,Upstream transport,167956.4,tCO2e
+CO-02,2019,1,Mobile combustion,34165.6,tCO2e
+CO-01,2020,1,Mobile combustion,29433.7,tCO2e
+CO-05,2021,1,Fugitive emissions,7401.5,tCO2e
+CO-01,2024,3,Upstream transport,181640.6,tCO2e
+CO-06,2023,3,Purchased goods & services,207885.4,tCO2e
+CO-05,2024,1,Stationary combustion,4328.4,tCO2e
+CO-08,2019,3,Business travel,80312.2,tCO2e
+CO-01,2024,1,Mobile combustion,25389.2,tCO2e
+CO-01,2022,2,Purchased heat & steam,69440.2,tCO2e
+CO-02,2023,3,Waste,296039.0,tCO2e
+CO-04,2019,1,Mobile combustion,2322.1,tCO2e
+CO-08,2022,2,Electricity,20106.4,tCO2e
+CO-07,2021,3,Business travel,116691.9,tCO2e
+CO-06,2024,1,Process emissions,19350.7,tCO2e
+CO-04,2023,2,Purchased heat & steam,7132.0,tCO2e
+CO-04,2022,3,Upstream transport,11928.6,tCO2e
+CO-05,2024,3,Business travel,121974.4,tCO2e
+CO-02,2021,1,Process emissions,39464.3,tCO2e
+CO-01,2021,1,Stationary combustion,37032.4,tCO2e
+CO-08,2024,1,Stationary combustion,12005.5,tCO2e
+CO-01,2019,1,Mobile combustion,29718.4,tCO2e
+CO-06,2019,3,Business travel,96609.0,tCO2e
+CO-08,2021,2,Purchased electricity,22605.8,tCO2e
+CO-06,2023,3,Business travel,122059.9,tCO2e
+CO-05,2022,1,Fugitive emissions,7421.7,tCO2e
+CO-02,2021,3,Purchased goods & services,267056.2,tCO2e
+CO-06,2019,3,Purchased goods & services,219162.3,tCO2e
+CO-04,2023,2,Purchased electricity,5324.2,tCO2e
+CO-08,2022,3,Purchased goods & services,40295.2,tCO2e
+CO-06,2020,3,Purchased goods & services,215618.9,tCO2e
+CO-07,2024,3,Purchased goods & services,93079.7,tCO2e
+CO-04,2023,1,Fugitive emissions,,tCO2e
+CO-08,2024,3,Business travel,109417.5,tCO2e
+CO-06,2021,3,Waste,135702.9,tCO2e
+CO-07,2022,3,Waste,168888.5,tCO2e
+CO-03,2023,1,Process emissions,32251.5,tCO2e
+CO-02,2022,1,Fugitive emissions,60220.9,tCO2e
+CO-06,2021,3,business travel,109931.3,tCO2e
+CO-06,2022,3,Purchased goods & services,210753.1,tCO2e
+CO-07,2023,1,Mobile combustion,23406.4,tCO2e
+CO-04,2019,2,Purchased electricity,7051.5,tCO2e
+CO-02,2019,2,Purchased electricity,108513.3,tCO2e
+CO-02,2023,1,Mobile combustion,30160.1,tCO2e
+CO-05,2021,3,Upstream transport,45415.1,tCO2e
+CO-04,2023,1,Mobile combustion,2114.5,tCO2e
+CO-01,2023,2,Purchased heat & steam,65405.9,tCO2e
+CO-08,2023,2,purchased electricity,19255.1,tCO2e
+CO-05,2021,1,Mobile combustion,6662.1,tCO2e
+CO-02,2019,3,Waste,370996.1,tCO2e
+CO-02,2022,3,Upstream transport,327483.5,tCO2e
+CO-02,2024,1,Process emissions,37450700.0,kgCO2e
+CO-01,2022,3,Waste,98743.8,tCO2e
+CO-01,2021,1,Mobile combustion,28122.3,tCO2e
+CO-07,2021,2,Purchased heat & steam,52088.8,tCO2e
+CO-05,2023,1,Stationary combustion,4677.1,tCO2e
+CO-05,2019,2,Purchased heat & steam,30707.0,tCO2e
+CO-01,2022,3,Purchased goods & services,118975.6,tCO2e
+CO-01,2022,3,Upstream transport,168679.9,tCO2e
+CO-01,2023,1,Mobile combustion,26085.0,tCO2e
+CO-04,2023,3,Waste,13450.9,tCO2e
+CO-04,2022,1,Process emissions,3129.8,tCO2e
+CO-03,2024,3,Purchased goods & services,152143.7,tCO2e
+CO-05,2023,1,Mobile combustion,6359.9,tCO2e
+CO-08,2020,2,Electricity,24088.0,tCO2e
+CO-04,2021,2,Purchased electricity,6077.7,tCO2e
+CO-08,2021,3,Upstream transport,79763.3,tCO2e
+CO-07,2021,3,Purchased goods & services,94623.6,tCO2e
+CO-06,2024,1,Stationary combustion,24175.2,tCO2e
+CO-02,2022,2,Purchased electricity,83953.1,tCO2e
+CO-05,2022,1,Process emissions,11855.8,tCO2e
+CO-06,2019,1,Mobile combustion,23280.3,tCO2e
+CO-08,2023,1,Fugitive emissions,14619.9,tCO2e
+CO-04,2019,3,Waste,16814.1,tCO2e
+CO-06,2021,1,Process emissions,21248.6,tCO2e
+CO-01,2024,1,Stationary combustion,31842.0,tCO2e
+CO-07,2023,2,Purchased heat & steam,49063.2,tCO2e
+CO-04,2021,1,Fugitive emissions,1709.0,tCO2e
+CO-08,2023,3,Purchased goods & services,39372.4,tCO2e
+CO-01,2024,2,Purchased heat & steam,65533.1,tCO2e
+CO-04,2022,2,Purchased electricity,5876.2,tCO2e
+CO-08,2023,2,Purchased heat & steam,22652.3,tCO2e
+CO-05,2019,3,Upstream transport,41925.6,tCO2e
+CO-07,2022,3,Business travel,128891.1,tCO2e
+CO-08,2020,1,Mobile combustion,14044.5,tCO2e
+CO-06,2019,3,Waste,146819.5,tCO2e
+CO-06,2022,1,Stationary combustion,27192.0,tCO2e
+CO-07,2024,3,business travel,144735.2,tCO2e
+CO-04,2019,1,Fugitive emissions,1681.5,tCO2e
+CO-06,2021,3,Upstream transport,146032.1,tCO2e
+CO-07,2024,3,Upstream transport,-183411.3,tCO2e
+CO-08,2020,3,Purchased goods & services,41759.5,tCO2e
+CO-08,2020,3,Upstream transport,74348.9,tCO2e
+CO-08,2021,1,Fugitive emissions,14586.2,tCO2e
+CO-04,2019,1,Process emissions,3513.7,tCO2e
+CO-07,2022,1,Mobile combustion,24594.5,tCO2e
+CO-07,2024,1,Stationary combustion,13135.4,tCO2e
+CO-01,2023,1,Stationary combustion,33788.7,tCO2e
+CO-05,2024,2,Purchased heat & steam,27498.7,tCO2e
+CO-05,2024,1,Process emissions,11308.7,tCO2e
+CO-08,2020,2,Purchased heat & steam,24815.2,tCO2e
+CO-02,2021,1,Fugitive emissions,62958.3,tCO2e
+CO-04,2024,1,Stationary combustion,1770.6,tCO2e
+CO-05,2019,1,Process emissions,12354.5,tCO2e
+CO-06,2022,3,Waste,128321.5,tCO2e
+CO-05,2023,1,Fugitive emissions,7615.3,tCO2e
+CO-02,2023,3,Travel,256845.0,tCO2e
+CO-03,2019,2,purchased electricity,49739.4,tCO2e
+CO-05,2020,1,Mobile combustion,6890.3,tCO2e
+CO-03,2023,1,Mobile combustion,25088.9,tCO2e
+CO-04,2021,3,Upstream transport,12339.3,tCO2e
+CO-05,2024,3,Upstream transport,46055.8,tCO2e
+CO-04,2021,1,Stationary combustion,-2038.8,tCO2e
+CO-06,2021,2,Purchased electricity,37913.7,tCO2e
+CO-07,2021,3,Upstream transport,178541.8,tCO2e
+CO-08,2020,3,Business travel,86446.3,tCO2e
+CO-07,2019,1,Mobile combustion,26523.8,tCO2e
+CO-02,2023,1,Process emissions,39902.2,tCO2e
+CO-04,2024,1,Process emissions,3009.8,tCO2e
+CO-03,2024,1,Stationary combustion,26360.1,tCO2e
+CO-07,2021,1,Mobile combustion,25291.3,tCO2e
+CO-05,2023,1,Process emissions,11192.7,tCO2e
+CO-02,2019,3,Upstream transport,295530.5,tCO2e
+CO-01,2021,3,Waste,106541.2,tCO2e
+CO-03,2021,1,Mobile combustion,27247.2,tCO2e
+CO-01,2019,3,Business travel,121535.6,tCO2e
+CO-04,2023,2,Purchased heat & steam,7132.0,tCO2e
+CO-08,2021,3,Waste,42766.4,tCO2e
+CO-04,2021,2,Purchased heat & steam,7543.0,tCO2e
+CO-01,2021,3,Upstream transport,165615.9,tCO2e
+CO-02,2020,1,Mobile combustion,31810.4,tCO2e
+CO-02,2021,2,Purchased heat & steam,64270.1,tCO2e
+CO-02,2024,3,Upstream transport,342874.8,tCO2e
+CO-01,2024,3,Waste,86096.5,tCO2e
+CO-01,2019,1,Fugitive emissions,42814.7,tCO2e
+CO-04,2024,2,Purchased electricity,4834.0,tCO2e
+CO-02,2023,3,Purchased goods & services,264263.2,tCO2e
+CO-07,2022,3,Upstream transport,182377.8,tCO2e
+CO-04,2023,1,Mobile combustion,2114.5,tCO2e
+CO-08,2019,3,Waste,47760.6,tCO2e
+CO-06,2022,1,Mobile combustion,20792.8,tCO2e
+CO-05,2023,3,Upstream transport,46316.0,tCO2e
+CO-07,2020,2,Purchased heat & steam,55754.5,tCO2e
+CO-02,2023,2,Purchased heat & steam,58438.7,tCO2e
+CO-04,2023,1,Stationary combustion,1897.6,tCO2e
+CO-01,2024,2,purchased electricity,50126.0,tCO2e
+CO-04,2024,2,Purchased heat & steam,6878.1,tCO2e
+CO-02,2021,2,Purchased electricity,90923.9,tCO2e
+CO-05,2024,3,Waste,48816.9,tCO2e
+CO-02,2022,3,Waste,321257.6,tCO2e
+CO-04,2020,1,Stationary combustion,2110.8,tCO2e
+CO-03,2023,3,Business travel,165552.8,tCO2e
+CO-07,2021,1,Process emissions,19867.6,tCO2e
+CO-03,2021,1,Stationary combustion,,tCO2e
+CO-08,2024,2,Purchased electricity,18165.7,tCO2e
+CO-07,2023,3,Purchased goods & services,94387.1,tCO2e
+CO-04,2020,3,Business travel,15121.8,tCO2e
+CO-05,2022,3,Waste,52061.3,tCO2e
+CO-02,2023,1,Stationary combustion,27562.7,tCO2e
+CO-03,2022,1,Fugitive emissions,24528.5,tCO2e
+CO-08,2019,2,Purchased heat & steam,25586.4,tCO2e
+CO-08,2021,1,Process emissions,9342.8,tCO2e
+CO-07,2019,3,Business travel,107790.4,tCO2e
+CO-07,2099,2,Purchased electricity,9000.0,tCO2e
+CO-06,2023,2,purchased electricity,33156.2,tCO2e
+CO-05,2024,1,Mobile combustion,6146.5,tCO2e
+CO-03,2021,3,Purchased goods & services,158077.4,tCO2e
+CO-04,2019,2,Purchased heat & steam,7837.1,tCO2e
+CO-08,2024,1,Mobile combustion,12453.0,tCO2e
+CO-02,2023,1,Fugitive emissions,62994.1,tCO2e
+CO-06,2020,2,Purchased electricity,41475.2,tCO2e
+CO-04,2021,3,Purchased goods & services,12347.4,tCO2e
+CO-03,2022,1,Mobile combustion,26911.6,tCO2e
+CO-07,2019,3,Purchased goods & services,96915.9,tCO2e
+CO-01,2021,1,Process emissions,20983.8,tCO2e
+CO-05,2020,3,Purchased goods & services,62994.0,tCO2e
+CO-05,2022,1,Stationary combustion,4691.5,tCO2e
+CO-06,2020,2,Purchased heat & steam,35735.2,tCO2e
+CO-02,2019,1,Fugitive emissions,60195.9,tCO2e
+CO-08,2021,3,Purchased goods & services,40096.0,tCO2e
+CO-02,2022,1,Mobile combustion,31258.7,tCO2e
+CO-06,2022,2,Purchased electricity,35058.2,tCO2e
+CO-02,2021,3,Waste,339019.6,tCO2e
+CO-04,2022,1,Fugitive emissions,1677.8,tCO2e
+CO-05,2022,1,Mobile combustion,6593.6,tCO2e
+CO-04,2022,3,Purchased goods & services,11685.0,tCO2e
+CO-03,2020,3,Upstream transport,126353.1,tCO2e
+CO-01,2020,2,Purchased heat & steam,72656.3,tCO2e
+CO-05,2021,1,Stationary combustion,5041.6,tCO2e
+CO-06,2022,3,Business travel,115818.0,tCO2e
+CO-02,2020,2,Purchased electricity,99567.6,tCO2e
+CO-03,2020,1,Fugitive emissions,25292.1,tCO2e
+CO-03,2023,1,Fugitive emissions,25633.8,tCO2e
+CO-04,2023,1,Process emissions,3159.9,tCO2e
+CO-02,2020,2,Purchased heat & steam,65117.0,tCO2e
+CO-05,2020,2,Purchased heat & steam,29978.4,tCO2e
+CO-01,2019,3,Upstream transport,156969.2,tCO2e
+CO-06,2024,3,Waste,111553.4,tCO2e
+CO-06,2019,1,Fugitive emissions,35486.9,tCO2e
+CO-03,2022,1,Process emissions,33849.6,tCO2e
+CO-05,2022,3,Purchased goods & services,60477.4,tCO2e
+CO-08,2023,3,Waste,40320.1,tCO2e
+CO-01,2022,1,Process emissions,20015.8,tCO2e
+CO-04,2023,3,Business travel,17802.3,tCO2e
+CO-03,2024,3,Travel,173448.4,tCO2e
+CO-01,2022,2,Electricity,56176.6,tCO2e
+CO-02,2019,1,Process emissions,42353.5,tCO2e
+CO-06,2019,2,Purchased heat & steam,36855.6,tCO2e
+CO-03,2020,1,Mobile combustion,27893.6,tCO2e
+CO-06,2020,1,Mobile combustion,22353.4,tCO2e
+CO-07,2022,1,Stationary combustion,14265.8,tCO2e
+CO-07,2021,3,Waste,176551.4,tCO2e
+CO-08,2019,3,Upstream transport,74121.8,tCO2e
+CO-02,2021,1,Stationary combustion,29852.6,tCO2e
+CO-08,2019,1,Mobile combustion,14379.5,tCO2e
+CO-01,2022,1,Fugitive emissions,43049.6,tCO2e
+CO-03,2021,1,Process emissions,33844.9,tCO2e
+CO-04,2021,3,Waste,15629.6,tCO2e
+CO-05,2022,2,Purchased electricity,23195.6,tCO2e
+CO-04,2023,3,Upstream transport,12794.0,tCO2e
+CO-05,2019,2,Purchased electricity,29009.5,tCO2e
+CO-07,2022,2,Purchased electricity,79735.0,tCO2e
+CO-01,2022,1,Mobile combustion,27215.3,tCO2e
+CO-07,2020,1,Fugitive emissions,11896.7,tCO2e
+CO-07,2020,3,Business Travel,114112.0,tCO2e
+CO-03,2020,3,Waste,147199.7,tCO2e
+CO-07,2022,2,Purchased heat & steam,51307.2,tCO2e
+CO-04,2024,3,Waste,12716.2,tCO2e
+CO-06,2023,1,Stationary combustion,24882.2,tCO2e
+CO-01,2021,2,Purchased electricity,61308.9,tCO2e
+CO-06,2023,1,Fugitive emissions,35891.2,tCO2e
+CO-02,2020,3,Upstream transport,313722.7,tCO2e
+CO-01,2019,1,Process emissions,21979.8,tCO2e
+CO-03,2020,1,Process emissions,35718.2,tCO2e
+CO-07,2022,3,Purchased goods & services,92047.2,tCO2e
+CO-06,2020,1,Process emissions,20810.8,tCO2e
+CO-06,2021,1,Mobile combustion,21763.8,tCO2e
+CO-02,2024,3,Waste,297043.4,tCO2e
+CO-05,2020,3,Upstream transport,45015.7,tCO2e
+CO-05,2021,1,Process emissions,11923.6,tCO2e
+CO-03,2019,1,Process emissions,35486.1,tCO2e
+CO-07,2024,1,Mobile combustion,23225.9,tCO2e
+CO-03,2024,1,Fugitive emissions,25264.8,tCO2e
+CO-07,2023,3,Business travel,132241.6,tCO2e
+CO-08,2021,1,Mobile combustion,13626400.0,kgCO2e
+CO-06,2024,3,Upstream transport,155218.6,tCO2e
+CO-08,2022,2,Purchased heat & steam,24523.2,tCO2e
+CO-04,2024,3,Upstream transport,13042.2,tCO2e
+CO-06,2023,1,Process emissions,19519.1,tCO2e
+CO-02,2020,1,Stationary combustion,30943.9,tCO2e
+CO-07,2019,3,Waste,197318.0,tCO2e
+CO-06,2022,1,Fugitive emissions,35676.7,tCO2e
+CO-02,2022,2,Purchased heat & steam,61469.8,tCO2e
+CO-05,2019,3,Business travel,86449.4,tCO2e
+CO-05,2019,3,Purchased goods & services,61430.6,tCO2e
+CO-07,2020,1,Stationary combustion,16149.4,tCO2e
+CO-06,2024,2,Purchased heat & steam,32905.9,tCO2e
+CO-05,2023,2,Purchased electricity,22599.1,tCO2e
+CO-03,2024,2,Purchased heat & steam,44323.2,tCO2e
+CO-08,2022,1,Process emissions,8834.0,tCO2e
+CO-01,2023,1,Fugitive emissions,41103.3,tCO2e
+CO-05,2024,1,Fugitive emissions,7618.6,tCO2e
+CO-06,2019,3,Upstream transport,142466.8,tCO2e
+CO-03,2023,3,Upstream transport,130289.8,tCO2e
+CO-04,2020,1,Fugitive emissions,1693.8,tCO2e
+CO-06,2024,3,Purchased goods & services,201337.0,tCO2e
+CO-05,2020,3,Waste,58706.0,tCO2e
+CO-01,2021,2,Purchased heat & steam,72639.8,tCO2e
+CO-08,2019,1,Process emissions,9326.1,tCO2e
+CO-01,2019,2,Purchased heat & steam,74124.4,tCO2e
+CO-05,2020,2,Purchased electricity,26977.4,tCO2e
+CO-01,2020,1,Stationary combustion,38257.8,tCO2e
+CO-04,2020,2,Purchased electricity,6814.9,tCO2e
+CO-06,2023,1,Mobile combustion,20200.2,tCO2e
+CO-07,2024,2,Purchased heat & steam,47624.0,tCO2e
+CO-08,2023,1,Mobile combustion,12844.3,tCO2e
+CO-06,2024,2,purchased electricity,31169.5,tCO2e
+CO-01,2024,1,Fugitive emissions,41033.6,tCO2e
+CO-02,2022,1,Process emissions,38520.2,tCO2e
+CO-02,2022,3,Purchased goods & services,272891.1,tCO2e
+CO-01,2021,1,Fugitive emissions,42521.4,tCO2e
+CO-05,2022,3,Upstream transport,45508.7,tCO2e
+CO-07,2021,2,Purchased electricity,88049.8,tCO2e
+CO-03,2023,2,Electricity,35583.6,tCO2e
+CO-02,2024,2,Purchased heat & steam,58881.5,tCO2e
+CO-03,2024,1,Mobile combustion,23973.9,tCO2e
+CO-02,2024,3,Purchased goods & services,251793.3,tCO2e
+CO-07,2020,3,Purchased goods & services,96912.9,tCO2e
+CO-08,2019,1,Stationary combustion,14644.8,tCO2e
+CO-02,2023,2,purchased electricity,,tCO2e
+CO-01,2024,3,Business travel,164375.4,tCO2e
+CO-06,2021,1,Stationary combustion,27043.4,tCO2e
+CO-04,2022,3,Business travel,17190.1,tCO2e
+CO-03,2021,1,Fugitive emissions,24578.0,tCO2e
+CO-05,2023,3,Business travel,109795.9,tCO2e
+CO-03,2020,2,Purchased heat & steam,52149.0,tCO2e
+CO-06,2024,1,Mobile combustion,19567.9,tCO2e
+CO-06,2019,1,Process emissions,20946.9,tCO2e
+CO-01,2022,1,Stationary combustion,34644.8,tCO2e
+CO-01,2024,1,Process emissions,19070.5,tCO2e
+CO-05,2024,3,Purchased goods & services,,tCO2e
+CO-01,2021,3,Purchased goods & services,116087.9,tCO2e
+CO-05,2023,3,Purchased goods & services,59559.9,tCO2e
+CO-04,2020,3,Waste,16059.1,tCO2e
+CO-01,2023,3,Purchased goods & services,116200.3,tCO2e
+CO-05,2019,1,Mobile combustion,7215.9,tCO2e
+CO-01,2020,3,Upstream transport,167909.9,tCO2e
+CO-08,2024,1,Fugitive emissions,14384.7,tCO2e
+CO-06,2021,3,Purchased goods & services,207026000.0,kgCO2e
+CO-02,2024,1,Mobile combustion,28276.4,tCO2e
+CO-03,2022,2,purchased electricity,38685.1,tCO2e
+CO-03,2020,1,Stationary combustion,32020.0,tCO2e
+CO-06,2023,3,Upstream transport,155515.3,tCO2e
+CO-08,2024,2,Purchased heat & steam,22715.6,tCO2e
+CO-03,2023,3,Purchased goods & services,149577.8,tCO2e
+CO-03,2022,1,Stationary combustion,29249.8,tCO2e
+CO-05,2023,2,Purchased heat & steam,27123.1,tCO2e
+CO-06,2020,1,Fugitive emissions,34450.1,tCO2e
+CO-02,2022,1,Stationary combustion,29530.9,tCO2e
+CO-05,2021,3,Purchased goods & services,63102.3,tCO2e
+CO-06,2020,3,Upstream transport,148798.1,tCO2e
+CO-08,2021,1,Stationary combustion,13110.5,tCO2e
+CO-04,2020,1,Process emissions,3308.4,tCO2e
+CO-03,2020,2,purchased electricity,44912100.0,kgCO2e
+CO-07,2020,3,Waste,185085.7,tCO2e
+CO-03,2020,3,Purchased goods & services,164218.4,tCO2e
+CO-06,2022,3,Upstream transport,154094.1,tCO2e
+CO-05,2021,2,Purchased electricity,26014.1,tCO2e
+CO-07,2022,1,Fugitive emissions,11890.8,tCO2e
+CO-07,2020,1,Process emissions,19868.9,tCO2e
+CO-02,2019,3,Purchased goods & services,272156.2,tCO2e
+CO-03,2024,1,Process emissions,32055.3,tCO2e
+CO-02,2023,3,Travel,256845.0,tCO2e
+CO-07,2023,1,Stationary combustion,13870.2,tCO2e
+CO-07,2021,1,Fugitive emissions,12008.4,tCO2e
+CO-02,2024,1,Stationary combustion,26604.5,tCO2e
+CO-03,2021,3,Business travel,149294.3,tCO2e
+CO-08,2021,2,Purchased heat & steam,25041.6,tCO2e
+CO-03,2019,1,Stationary combustion,32040.2,tCO2e
+CO-02,2019,2,Purchased heat & steam,65802.5,tCO2e
+CO-01,2024,3,Purchased goods & services,115200.6,tCO2e
+CO-04,2024,3,Purchased goods & services,11689.0,tCO2e
+CO-04,2022,3,Waste,14864.8,tCO2e
+CO-07,2020,3,Upstream transport,174186.0,tCO2e
+CO-07,2020,1,Mobile combustion,26013.7,tCO2e
+CO-04,2019,1,Stationary combustion,2127.2,tCO2e
+CO-02,2020,1,Fugitive emissions,62218.6,tCO2e
+CO-01,2023,1,Mobile combustion,26085.0,tCO2e
+CO-07,2023,1,Fugitive emissions,12147.8,tCO2e
+CO-04,2021,3,Business travel,16262.9,tCO2e
+CO-08,2019,3,Purchased goods & services,,tCO2e
+CO-03,2021,2,Electricity,42269.7,tCO2e
+CO-08,2022,3,Upstream transport,77454.4,tCO2e
+CO-03,2019,3,Upstream transport,122339.7,tCO2e
+CO-08,2022,1,Mobile combustion,13215.8,tCO2e
+CO-07,2023,1,Process emissions,18815.3,tCO2e
+CO-03,2019,3,Business travel,135562.8,tCO2e
+CO-01,2023,3,Waste,91394.2,tCO2e
+CO-06,2020,3,Business travel,105311.8,tCO2e
+CO-01,2020,2,purchased electricity,63690.5,tCO2e
+CO-08,2024,3,Purchased goods & services,39178.4,tCO2e
+CO-02,2021,3,Business travel,231594.4,tCO2e
+CO-03,2019,1,Mobile combustion,29103.3,tCO2e
+CO-06,2023,2,Purchased heat & steam,33409.5,tCO2e
