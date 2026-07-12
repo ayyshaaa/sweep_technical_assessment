@@ -34,6 +34,7 @@ Exploratory analysis has been conducted in the exploration.ipynb Jupyter noteboo
 ### 3. target_trajectory.csv
 
 - No duplicates on the target_id × year grain. The composite key is indeed unique.
+- For every target, first year report fits baseline_year and there's no year gap
 - All SBTi validated targets have a reduction rate above or equal to 42%.
 - Only one method used ("-% per year (linear)"), the trajectory is linear as expected.
 - No unit issue here, only tCO2e.
@@ -56,8 +57,22 @@ All 3 bottom_up_child initiatives have a parent_group_id. Specifically, group GR
 
 ## Model choices
 
+Layers choice:
+
+### Staging layer
+
+- companies staging model
+Since the source is clean already, I will only cast and rename attributes. Data types are automatically inferred from the seeded table however it might fail depending on the choosen database. Explicit cast ensures type is exactly what I want, regardless of the choosen database.
+I'm conducting simple checks regarding company_id primary key unicity, not null or invalid values for each attributes to look out for edge cases.
+- target_trajectory staging model
+
+
+### Mart layer
+
 ## Assumptions and tradeoffs
 
 - Negative CO2 emissions may exist in certain contexts (carbon sequestration, accounting corrections). Without business validation, emissions_tco2e negative values are kept.
+- The expected reduction trajectory is assumed to be strictly decreasing from one year to the next, consistent with the -% per year (linear) method observed in the dataset.
 
-- In target_trajectory.csv, all reduction targets only cover Scope 1+2. Scope 3 which is often the most significant, representing up to 90% of emissions for some companies, is never included in the reduction commitments. This constitutes a major limitation in interpreting progress toward targets.
+
+(In target_trajectory.csv, all reduction targets only cover Scope 1+2. Scope 3 which is often the most significant, representing up to 90% of emissions for some companies, is never included in the reduction commitments. This constitutes a major limitation in interpreting progress toward targets.)
