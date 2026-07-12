@@ -67,11 +67,16 @@ The transformation logic written for DuckDB is fully portable to Snowflake. You 
 
 Earlier-stage, exploratory analysis has been conducted in the `exploration.ipynb` Jupyter notebook to assess the datasets' quality.
 The exploration followed an iterative approach, going from general to specific as the understanding of the domain deepened:
-**Structure** — inspecting column names, data types inferred by pandas, and memory usage via `.info()` and `.head()`.
-**Completeness** — identifying null values per column with `.isnull().sum()`, and duplicate rows on the grain of each table with `.duplicated()` (full-row, then `subset=[...]` on the business key).
-**Validity** — using `.describe()` to spot out-of-range numerical values and `.value_counts()` to catch invalid or inconsistent categorical values.
-**Consistency** — checking referential integrity between tables with `.isin()`, and cross-row consistency within a table via `groupby().agg()` (e.g. each target's first/last reported `year` against its `baseline_year`/`target_year`)
-**Business rules** — verifying domain-specific constraints with a mix of boolean filtering and `groupby()`: scope values restricted to {1, 2, 3}, SBTi-validated targets meeting the ≥42% reduction threshold, parent/child initiative sums (`bottom_up_group` vs its `bottom_up_child` rows) reconciling, and trajectory year-continuity checked with a custom `groupby().apply()` function that diffs the observed years against the expected full range.
+
+**Structure** inspecting column names, data types inferred by pandas, and memory usage via `.info()` and `.head()`.
+
+**Completeness** identifying null values per column with `.isnull().sum()`, and duplicate rows on the grain of each table with `.duplicated()` (full-row, then `subset=[...]` on the business key).
+
+**Validity** using `.describe()` to spot out-of-range numerical values and `.value_counts()` to catch invalid or inconsistent categorical values.
+
+**Consistency** checking referential integrity between tables with `.isin()`, and cross-row consistency within a table via `groupby().agg()` (e.g. each target's first/last reported `year` against its `baseline_year`/`target_year`).
+
+**Business rules** verifying domain-specific constraints with a mix of boolean filtering and `groupby()`: scope values restricted to {1, 2, 3}, SBTi-validated targets meeting the ≥42% reduction threshold, parent/child initiative sums (`bottom_up_group` vs its `bottom_up_child` rows) reconciling, and trajectory year-continuity checked with a custom `groupby().apply()` function that diffs the observed years against the expected full range.
 
 
 ### 1. companies.csv
@@ -92,10 +97,10 @@ The exploration followed an iterative approach, going from general to specific a
 |---|---|---|---|
 | Duplicates | 16 | Records exactly 8 duplicated pairs on the grain key `company_id × year × scope × category`. | Deduplicated in staging via `ROW_NUMBER()`, first occurrence kept. |
 | Null values in `emissions_tco2e` | 8 | Missing value for emissions, including the duplicate pair (CO-05 \| 2024 \| scope 3 \| Purchased goods & services). | Kept in staging with a `is_null_emission = TRUE` flag. Excluded from analytical calculations in the marts. |
-| Outlier year | 1 | CO-07 \| 2099 \| scope 2 \| Purchased electricity \| 9000 tCO2e. Clearly incorrect year, most likely a data entry error. The correct value cannot be inferred. | Kept in staging with a `is_invalid_year = TRUE` flag. Excluded from analytical calculations in the marts. |
-| Invalid scope | 1 | CO-08 \| 2023 \| scope 4 \| Other \| 5000 tCO2e — scope 4 does not exist in the GHG Protocol standard (accepted values: 1, 2, 3). | Kept in staging with a `is_invalid_scope = TRUE` flag. Excluded from analytical calculations in the marts. |
+| Outlier year | 1 | CO-07 \| 2099 \| scope 2 \| Purchased electricity \| 9000 tCO2e<br> Clearly incorrect year, most likely a data entry error. The correct value cannot be inferred. | Kept in staging with a `is_invalid_year = TRUE` flag. Excluded from analytical calculations in the marts. |
+| Invalid scope | 1 | CO-08 \| 2023 \| scope 4 \| Other \| 5000 tCO2e<br> Scope 4 does not exist in the GHG Protocol standard (accepted values: 1, 2, 3). | Kept in staging with a `is_invalid_scope = TRUE` flag. Excluded from analytical calculations in the marts. |
 | Negative emissions | 3 | CO-01 \| 2020 \| scope 3 \| Purchased goods & services \| -119 027 tCO2e<br>CO-07 \| 2024 \| scope 3 \| Upstream transport \| -183 411 tCO2e<br>CO-04 \| 2021 \| scope 1 \| Stationary combustion \| -2 039 tCO2e<br> It might be typos or valid values depending on business rules. | Flagged with `is_negative_emission = TRUE`. |
-| Mixed units — kgCO2e vs tCO2e | 4 | Rows expressed in kgCO2e instead of tCO2e, producing strikingly high values (up to 207 million). After conversion (/1000), these values are consistent with the rest of the dataset. | Normalized to tCO2e in staging via `CASE WHEN unit = 'kgCO2e' THEN emissions_tco2e / 1000 ELSE emissions_tco2e END`. |
+| Mixed units (kgCO2e vs tCO2e) | 4 | Rows expressed in kgCO2e instead of tCO2e, producing strikingly high values (up to 207 million). After conversion (/1000), these values are consistent with the rest of the dataset. | Normalized to tCO2e in staging via `CASE WHEN unit = 'kgCO2e' THEN emissions_tco2e / 1000 ELSE emissions_tco2e END`. |
 
 ### 3. target_trajectory.csv
 
@@ -118,18 +123,23 @@ All 3 bottom_up_child initiatives have a not null `parent_group_id`. Specificall
 | Issue | Rows | Details | Handling |
 |---|---|---|---|
 | Duplicates | 6 | 3 pairs of duplicates are exact across all columns (which includes `initiative_id` grain):<br>INI-0013 \| Fleet electrification \| 988.9 tCO2e<br>INI-0035 \| Energy efficiency \| 4,609,800 kgCO2e<br>INI-0036 \| Supplier engagement \| 6,303,600 kgCO2e | Deduplicated via `ROW_NUMBER()`, same as for emissions. |
-| Mixed units — kgCO2e vs tCO2e | 5 | Rows expressed in kgCO2e instead of tCO2e, producing strikingly high values (up to 21 million). After conversion (/1000), these values are consistent with the rest of the dataset. | Normalized to tCO2e in staging via `CASE WHEN unit = 'kgCO2e' THEN estimated_reduction / 1000 ELSE estimated_reduction END`. |
-| Invalid target_id — TGT-999 | 1 | INI-0041 \| CO-04 \| TGT-999. This initiative references a `target_id` which does not exist in target_trajectory table. It's an orphan initiative that cannot be linked to a reduction target. I kept in staging with a flag `is_orphan = TRUE`, excluded from target-progress calculations. |
+| Mixed units (kgCO2e vs tCO2e) | 5 | Rows expressed in kgCO2e instead of tCO2e, producing strikingly high values (up to 21 million). After conversion (/1000), these values are consistent with the rest of the dataset. | Normalized to tCO2e in staging via `CASE WHEN unit = 'kgCO2e' THEN estimated_reduction / 1000 ELSE estimated_reduction END`. |
+| Invalid target_id (TGT-999) | 1 | INI-0041 \| CO-04 \| TGT-999<br> This initiative references a `target_id` which does not exist in target_trajectory table. It's an orphan initiative that cannot be linked to a reduction target. I kept in staging with a flag `is_orphan = TRUE`, excluded from target-progress calculations. |
 
 ## Model choices
 
 ### Layers organisation choice
 
 The project follows a standard dbt layered architecture (staging → marts) for several reasons:
+
 **Separation of concerns** each layer has a single, well-defined responsibility. The staging layer handles data quality, typing, and normalization. The marts layer handles business logic and analytical aggregations. Mixing the two would make models harder to maintain and debug.
+
 **Non-destructive approach** raw data is never modified. Issues are flagged in the staging layer rather than deleted, so the original data is always recoverable and auditable. Filtering decisions are deferred to the marts layer where the analytical context is clear.
+
 **Reusability** staging models are built once and referenced by multiple mart models via `ref()`. If the business logic of a mart changes, the staging layer remains untouched. If a source changes, only the corresponding staging model needs to be updated.
+
 **Testability** separating layers makes it easier to pinpoint where a data quality issue originates. A test failure in staging points to a source problem; a test failure in marts points to a transformation problem.
+
 **Transparency** the DAG generated by dbt makes dependencies between models explicit and visible, which helps any team member understand how data flows from raw sources to analytical outputs.
 
 ### 1. Staging layer
