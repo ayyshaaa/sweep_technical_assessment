@@ -1,0 +1,89 @@
+version: 2
+
+sources:
+  - name: raw
+    tables:
+      - name: companies
+      - name: emissions
+      - name: target_trajectory
+      - name: initiatives
+
+models:
+  - name: stg_companies
+    description: "Reference table for companies. Grain : company_id."
+    columns:
+      - name: company_id
+        tests:
+          - string_length:
+              min: 1
+              max: 255
+          - unique
+          - not_null
+      - name: company_name
+        tests:
+          - string_length:
+              min: 1
+              max: 255
+          - unique
+          - not_null
+      - name: sector
+        tests:
+          - string_length:
+              min: 1
+              max: 255
+          - not_null
+      - name: country
+        tests:
+          - string_length:
+              min: 1
+              max: 255
+          - not_null
+      - name: base_year
+        tests:
+          - not_null
+          - dbt_utils.accepted_range:
+              min_value: 2019
+              max_value: 2050
+  - name: stg_target_trajectory
+    description: "Expected trajectory reduction per target and per year. Grain : target_id x year."
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - target_id
+            - year
+      - baseline_year_before_target_year
+      - trajectory_within_bounds
+      - assert_decreasing_trajectory
+    columns:
+      - name: target_id
+        tests:
+          - not_null
+      - name: company_id
+        tests:
+          - not_null
+          - relationships:
+              to: ref('stg_companies')
+              field: company_id
+      - name: year
+        tests:
+          - not_null
+      - name: reduction_pct
+        tests:
+          - not_null
+          - dbt_utils.accepted_range:
+              min_value: 0
+              max_value: 1
+      - name: sbti_validated
+        tests:
+          - not_null
+      - name: expected_emissions_tco2e
+        tests:
+          - not_null
+          - dbt_utils.accepted_range:
+              min_value: 0
+      - name: scope_coverage
+        tests:
+          - not_null
+          - accepted_values:
+            values: ['Scope 1+2', 'Scope 1+2+3', 'Scope 1', 'Scope 1+3', 'Scope 2', 'Scope 2+3', 'Scope 3']
+      
