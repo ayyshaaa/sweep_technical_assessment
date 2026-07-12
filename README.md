@@ -2,7 +2,7 @@
 
 ## How to launch and view results
 
-## Technical stack
+## Repository structure and technical stack choices
 
 ## Data quality handling
 
