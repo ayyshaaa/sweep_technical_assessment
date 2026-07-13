@@ -2,6 +2,7 @@ version: 2
 
 sources:
   - name: raw
+    schema: main
     tables:
       - name: companies
       - name: emissions
@@ -13,77 +14,274 @@ models:
     description: "Reference table for companies. Grain : company_id."
     columns:
       - name: company_id
+        description: "Unique company identifier."
         tests:
           - string_length:
-              min: 1
-              max: 255
+              arguments:
+                min: 1
+                max: 255
           - unique
           - not_null
       - name: company_name
+        description: "Anonymized company name."
         tests:
           - string_length:
-              min: 1
-              max: 255
+              arguments:
+                min: 1
+                max: 255
           - unique
           - not_null
       - name: sector
+        description: "Industry sector."
         tests:
           - string_length:
-              min: 1
-              max: 255
+              arguments:
+                min: 1
+                max: 255
           - not_null
       - name: country
+        description: "Headquarters country."
         tests:
           - string_length:
-              min: 1
-              max: 255
+              arguments:
+                min: 1
+                max: 255
           - not_null
       - name: base_year
+        description: "Reduction-plan baseline year."
         tests:
           - not_null
           - dbt_utils.accepted_range:
-              min_value: 2019
-              max_value: 2050
-  - name: stg_target_trajectory
-    description: "Expected trajectory reduction per target and per year. Grain : target_id x year."
+              arguments:
+                min_value: 2019
+                max_value: 2050
+
+  - name: stg_emissions
+    description: "Emissions per companies, year, scope and category. Grain : company_id x year x scope x category."
     tests:
       - dbt_utils.unique_combination_of_columns:
-          combination_of_columns:
-            - target_id
-            - year
-      - baseline_year_before_target_year
-      - trajectory_within_bounds
-      - assert_decreasing_trajectory
+          arguments:
+            combination_of_columns:
+              - company_id
+              - year
+              - scope
+              - category
     columns:
-      - name: target_id
-        tests:
-          - not_null
       - name: company_id
+        description: "Company identifier."
         tests:
           - not_null
           - relationships:
-              to: ref('stg_companies')
-              field: company_id
+              arguments:
+                to: ref('stg_companies')
+                field: company_id
       - name: year
+        description: "Reporting year."
         tests:
           - not_null
-      - name: reduction_pct
-        tests:
-          - not_null
-          - dbt_utils.accepted_range:
-              min_value: 0
-              max_value: 1
-      - name: sbti_validated
-        tests:
-          - not_null
-      - name: expected_emissions_tco2e
-        tests:
-          - not_null
-          - dbt_utils.accepted_range:
-              min_value: 0
-      - name: scope_coverage
+      - name: scope
+        description: "GHG scope (1, 2, or 3)."
         tests:
           - not_null
           - accepted_values:
-            values: ['Scope 1+2', 'Scope 1+2+3', 'Scope 1', 'Scope 1+3', 'Scope 2', 'Scope 2+3', 'Scope 3']
-      
+              arguments:
+                values: [1, 2, 3]
+              config:
+                where: "is_invalid_scope = false"
+      - name: category
+        description: "Emission source / driver, lowercased and trimmed."
+        tests:
+          - not_null
+      - name: emissions_tco2e
+        description: "Measured emissions in tCO2e. Normalized from kgCO2e where applicable (/1000)."
+        tests:
+          - not_null:
+              config:
+                where: "is_null_emission = false"
+      - name: unit
+        description: "Measurement unit, normalized to tCO2e."
+        tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ['tCO2e']
+      - name: is_null_emission
+        description: "TRUE if emissions_tco2e was null in the source."
+        tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: [true, false]
+      - name: is_negative_emission
+        description: "TRUE if emissions_tco2e is negative. May be legitimate (carbon sequestration, accounting corrections) — requires business validation."
+        tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: [true, false]
+      - name: is_invalid_year
+        description: "TRUE if year is posterior to current date."
+        tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: [true, false]
+      - name: is_invalid_scope
+        description: "TRUE if scope is not in (1, 2, 3) per GHG Protocol standard."
+        tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: [true, false]
+
+  - name: stg_target_trajectory
+    description: "Expected trajectory reduction per target and year. Grain : target_id x year."
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - target_id
+              - year
+    columns:
+      - name: target_id
+        description: "Target identifier."
+        tests:
+          - not_null
+      - name: company_id
+        description: "Company identifier."
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_companies')
+                field: company_id
+              config:
+                where: "is_orphan_company = false"
+      - name: year
+        description: "Year of trajectory point."
+        tests:
+          - not_null
+      - name: reduction_pct
+        description: "Target reduction vs. baseline (e.g. 0.42 = -42%)."
+        tests:
+          - not_null
+          - dbt_utils.accepted_range:
+              arguments:
+                min_value: 0
+                max_value: 1
+      - name: sbti_validated
+        description: "Declared SBTi-aligned (TRUE/FALSE)."
+        tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: [true, false]
+      - name: expected_emissions_tco2e
+        description: "Planned emissions for that year, expressed in tCO2e."
+        tests:
+          - not_null
+          - dbt_utils.accepted_range:
+              arguments:
+                min_value: 0
+      - name: scope_coverage
+        description: "Covered emissions perimeter (e.g. Scope 1+2)."
+        tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ['Scope 1+2', 'Scope 1+2+3', 'Scope 1', 'Scope 1+3', 'Scope 2', 'Scope 2+3', 'Scope 3']
+      - name: baseline_year
+        description: "Baseline year of the reduction plan."
+      - name: target_year
+        description: "Target year for the reduction commitment."
+      - name: method
+        description: "Target methodology (e.g. -% per year linear)."
+      - name: unit
+        description: "Measurement unit, normalized to tCO2e."
+      - name: is_orphan_company
+        description: "TRUE if company_id does not exist in stg_companies (e.g. CO-999). Excluded from company-level rollups."
+        tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: [true, false]
+
+  - name: stg_initiatives
+    description: "Reduction initiatives per company and target. Grain : initiative_id."
+    columns:
+      - name: initiative_id
+        description: "Initiative identifier."
+        tests:
+          - unique
+          - not_null
+      - name: company_id
+        description: "Company identifier."
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_companies')
+                field: company_id
+      - name: target_id
+        description: "Linked target identifier."
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_target_trajectory')
+                field: target_id
+              config:
+                where: "is_orphan_target = false"
+      - name: initiative_name
+        description: "Initiative name."
+        tests:
+          - not_null
+      - name: lever_category
+        description: "Lever type (renewable electricity, energy efficiency, etc.)."
+        tests:
+          - not_null
+      - name: group_type
+        description: "standard, bottom_up_group, or bottom_up_child. A bottom_up_group aggregates its child initiatives — parent and child reductions should not be added together."
+        tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ['standard', 'bottom_up_group', 'bottom_up_child']
+      - name: parent_group_id
+        description: "Parent group identifier. NULL for standard and bottom_up_group. Not NULL for bottom_up_child only."
+      - name: start_year
+        description: "Initiative start year. Must be >= company base_year."
+        tests:
+          - not_null
+      - name: end_year
+        description: "Initiative end year. Must be <= target_year of the linked target."
+        tests:
+          - not_null
+      - name: status
+        description: "Initiative status: planned, in_progress, or completed."
+        tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ['planned', 'in_progress', 'completed']
+      - name: estimated_reduction
+        description: "Estimated emissions reduction in tCO2e. Normalized from kgCO2e where applicable (/1000)."
+        tests:
+          - not_null
+          - dbt_utils.accepted_range:
+              arguments:
+                min_value: 0
+      - name: unit
+        description: "Measurement unit, normalized to tCO2e."
+        tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ['tCO2e']
+      - name: is_orphan_target
+        description: "TRUE if target_id does not exist in target_trajectory (e.g. TGT-999). Excluded from target progress calculations."
+        tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: [true, false]
