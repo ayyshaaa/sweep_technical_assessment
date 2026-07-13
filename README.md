@@ -78,7 +78,6 @@ The exploration followed an iterative approach, going from general to specific a
 
 **Business rules** verifying domain-specific constraints with a mix of boolean filtering and `groupby()`: scope values restricted to {1, 2, 3}, SBTi-validated targets meeting the ≥42% reduction threshold, parent/child initiative sums (`bottom_up_group` vs its `bottom_up_child` rows) reconciling, and trajectory year-continuity checked with a custom `groupby().apply()` function that diffs the observed years against the expected full range.
 
-
 ### 1. companies.csv
 - No duplicates on the `company_id` grain. Each company is unique.
 - No null or outlier values detected across the entire set of columns.
@@ -110,6 +109,10 @@ The exploration followed an iterative approach, going from general to specific a
 - Only one method used ("-% per year (linear)"); the trajectory is linear as expected.
 - No `unit` issue here, only tCO2e.
 
+| Issue | Rows | Details | Handling |
+|---|---|---|---|
+| Invalid company_id (CO-999) | 12 | TGT-900 \| CO-999 \| Scope 1+2 \| target_year 2030<br> A full 12-point trajectory (2019 - 2030) is reported for a `company_id` which does not exist in companies.csv. It's an orphan target that cannot be linked to a company. | Kept in staging with a `is_orphan_company = TRUE` flag. Excluded from company-level rollups in the marts. |
+
 ### 4. initiatives.csv
 
 - All initiatives have a `status` value equal to planned, in_progress, or completed, and a `group_type` value equal to standard, bottom_up_group, or bottom_up_child.
@@ -124,7 +127,7 @@ All 3 bottom_up_child initiatives have a not null `parent_group_id`. Specificall
 |---|---|---|---|
 | Duplicates | 6 | 3 pairs of duplicates are exact across all columns (which includes `initiative_id` grain):<br>INI-0013 \| Fleet electrification \| 988.9 tCO2e<br>INI-0035 \| Energy efficiency \| 4,609,800 kgCO2e<br>INI-0036 \| Supplier engagement \| 6,303,600 kgCO2e | Deduplicated via `ROW_NUMBER()`, same as for emissions. |
 | Mixed units (kgCO2e vs tCO2e) | 5 | Rows expressed in kgCO2e instead of tCO2e, producing strikingly high values (up to 21 million). After conversion (/1000), these values are consistent with the rest of the dataset. | Normalized to tCO2e in staging via `CASE WHEN unit = 'kgCO2e' THEN estimated_reduction / 1000 ELSE estimated_reduction END`. |
-| Invalid target_id (TGT-999) | 1 | INI-0041 \| CO-04 \| TGT-999<br> This initiative references a `target_id` which does not exist in target_trajectory table. It's an orphan initiative that cannot be linked to a reduction target. I kept in staging with a flag `is_orphan = TRUE`, excluded from target-progress calculations. |
+| Invalid target_id (TGT-999) | 1 | INI-0041 \| CO-04 \| TGT-999<br> This initiative references a `target_id` which does not exist in target_trajectory table. It's an orphan initiative that cannot be linked to a reduction target. I kept in staging with a flag `is_orphan_target = TRUE`, excluded from target-progress calculations. |
 
 ## Model choices
 
@@ -144,14 +147,40 @@ The project follows a standard dbt layered architecture (staging → marts) for 
 
 ### 1. Staging layer
 
-- companies staging model
-Since the source is clean already, I will only cast and rename attributes. Data types are automatically inferred from the seeded table however it might fail depending on the choosen database. Explicit cast ensures type is exactly what I want, regardless of the choosen database.
-I'm conducting simple checks regarding `company_id` primary key unicity, not null or invalid values for each attributes to look out for edge cases.
+- companies staging model (`stg_companies.sql`)
 
-- target_trajectory staging model
+| Model justification | Tests justification |
+|---|---|
+| The source is already clean, so the transformation is limited to casting and renaming: dbt/DuckDB infers types from the seeded CSV, but that inference can vary depending on the target database, so an explicit `CAST` guarantees the exact type regardless of which warehouse sits behind the adapter. | Tests stay proportionate to the risk: `unique` + `not_null` on `company_id` enforce the primary key, and the same pair on `company_name` catches an unexpected homonym or a duplicated seed row. `string_length` is applied to every string column as a defensive floor/ceiling against empty strings or abnormally long values due to a badly parsed CSV row. `sector` and `country` only get `not_null` — with just 8 companies, an `accepted_values` list would be brittle and not worth maintaining as new companies are onboarded. `base_year` gets `not_null` plus `dbt_utils.accepted_range` bounded to [2019, 2050], consistent with the years observed in `target_trajectory`. It's a sanity check rather than a strict business rule. |
 
+- emissions staging model (`stg_emissions.sql`)
+
+| Model justification | Tests justification |
+|---|---|
+| This is the most complex source, so the staging layer does more than casting: `category` is lowercased and trimmed to avoid case-sensitivity duplicates downstream, and `emissions_tco2e` values recorded in kgCO2e are converted to tCO2e via `CASE WHEN unit = 'kgCO2e'` so the whole column ends up expressed in a single unit. Exact duplicates on the grain (`company_id × year × scope × category`) are removed with a `ROW_NUMBER()` window ordered by `emissions_tco2e DESC NULLS LAST`, so that when a duplicate pair has one null and one populated value, the populated one is the row kept rather than an arbitrary one. All other quality issues (null emissions, negative emissions, invalid year, invalid scope) are not filtered out here: they are flagged with boolean columns (`is_null_emission`, `is_negative_emission`, `is_invalid_year`, `is_invalid_scope`) so the row survives to staging and the exclusion decision is made explicitly in the marts layer, where the analytical context is clear. | `dbt_utils.unique_combination_of_columns` on the grain confirms the deduplication actually worked. `relationships` checks `company_id` against `stg_companies` to catch referential-integrity issues early. `accepted_values` on `scope` and the conditional `not_null` on `emissions_tco2e` are both scoped with a `where: is_invalid_scope = false` / `where: is_null_emission = false` clause. It lets the known bad row pass without failing the whole test suite, while still catching any *new*, unflagged bad row a future source refresh might introduce. Each `is_*` flag is itself tested with `accepted_values: [true, false]` as a basic boolean sanity check. |
+
+- target_trajectory staging model (`stg_target_trajectory.sql`)
+
+| Model justification | Tests justification |
+|---|---|
+| The source is already fairly clean, so like `companies`, the transformation is mostly casting and renaming. The one addition is `is_orphan_company`, computed with a `NOT IN` subquery against the `companies` **source** rather than `ref('stg_companies')`. Indeed staging models are kept independent from one another and only depend on sources, so the DAG stays flat and each staging model can be built or tested in isolation. | Tests mirror the exploration findings: `dbt_utils.unique_combination_of_columns` on `target_id × year` confirms the grain, and `relationships` on `company_id` is scoped with `where: is_orphan_company = false` to tolerate the one known orphan (`CO-999`) while still catching any unexpected one. `dbt_utils.accepted_range` bounds `reduction_pct` to [0, 1] and `expected_emissions_tco2e` to non-negative values. Unlike `emissions_tco2e` in the emissions model, no flag was introduced for negative planned emissions, since a negative *target* trajectory value has no plausible business meaning and should hard-fail rather than be silently tolerated. `accepted_values` on `scope_coverage` locks down the set of scope combinations observed during exploration, and on `sbti_validated` as a boolean check. |
+
+- initiatives staging model (`stg_initiatives.sql`)
+
+| Model justification | Tests justification |
+|---|---|
+| Same treatment as `emissions`: unit normalization (kgCO2e to tCO2e) and deduplication on the grain (`initiative_id`) via `ROW_NUMBER()` ordered by `estimated_reduction DESC NULLS LAST`. The only flag introduced is `is_orphan_target`, computed against the `target_trajectory` **source** directly, for the same reason as above, that is no cross-dependency between staging models. | Tests enforce `unique` + `not_null` on `initiative_id` (the grain), and `relationships` on both `company_id` (strict, since no orphan company was found in this table during exploration) and `target_id` (scoped with `where: is_orphan_target = false`, to tolerate the known `TGT-999` orphan). `accepted_values` locks `group_type` to `{standard, bottom_up_group, bottom_up_child}` and `status` to `{planned, in_progress, completed}`, since both are business-critical categorical fields used later to decide inclusion in the reduction totals. `dbt_utils.accepted_range` enforces non-negative values on `estimated_reduction`, for the same reason as `expected_emissions_tco2e` in target_trajectory: an estimated *future* reduction being negative would be a data error, not a legitimate business case. Note that `parent_group_id` carries no test — it's nullable by design (only `bottom_up_child` rows populate it), and the parent/child reconciliation (sum of children = group value) is a cross-row business rule verified during exploration rather than one easily expressed as a generic dbt test. |
 
 ### 2. Mart layer
+
+- companies mart model
+
+- emissions mart model
+
+- target_trajectory mart model
+
+- initiatives mart model
+
 
 ## Assumptions and tradeoffs
 
