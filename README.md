@@ -49,6 +49,8 @@ To browse or edit it interactively instead:
 ./venv/bin/jupyter notebook analysis.ipynb
 ```
 
+A slide deck called `Analysis and Recommendations.pptx` is also available for a quick review of the main findings.
+
 ### 4. Tests only / cleanup
 
 ```bash
