@@ -1,0 +1,170 @@
+version: 2
+
+models:
+  - name: fct_emissions
+    description: >
+      Analytical emissions fact table enriched with company attributes.
+      Grain : company_id x year x scope x category.
+      Invalid rows (invalid year, invalid scope, null emissions) are excluded.
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - company_id
+            - year
+            - scope
+            - category
+    columns:
+      - name: company_id
+        description: "Company identifier."
+        tests:
+          - not_null
+
+      - name: company_name
+        description: "Anonymized company name."
+        tests:
+          - not_null
+
+      - name: sector
+        description: "Industry sector."
+        tests:
+          - not_null
+
+      - name: country
+        description: "Headquarters country."
+        tests:
+          - not_null
+
+      - name: base_year
+        description: "Reduction-plan baseline year."
+        tests:
+          - not_null
+
+      - name: year
+        description: "Reporting year."
+        tests:
+          - not_null
+
+      - name: years_since_baseline
+        description: "Number of years elapsed since the company baseline year."
+        tests:
+          - not_null
+
+      - name: scope
+        description: "GHG scope (1, 2, or 3)."
+        tests:
+          - not_null
+          - accepted_values:
+              values: [1, 2, 3]
+
+      - name: category
+        description: "Emission source / driver."
+        tests:
+          - not_null
+
+      - name: emissions_tco2e
+        description: "Measured emissions in tCO2e. Negative values are kept as they may be legitimate."
+        tests:
+          - not_null
+
+      - name: unit
+        description: "Measurement unit, always tCO2e."
+        tests:
+          - not_null
+          - accepted_values:
+              values: ['tCO2e']
+
+      - name: is_negative_emission
+        description: "TRUE if emissions_tco2e is negative. Kept for analytical awareness."
+        tests:
+          - not_null
+          - accepted_values:
+              values: [true, false]
+  - name: fct_company_target_status
+    description: >
+      Company target progress table combining expected trajectory, actual emissions
+      and initiative contributions. Grain : target_id x year.
+      Actual emissions are filtered to Scope 1+2 to match scope_coverage.
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - target_id
+            - year
+    columns:
+      - name: target_id
+        description: "Target identifier."
+        tests:
+          - not_null
+      - name: company_id
+        description: "Company identifier."
+        tests:
+          - not_null
+      - name: company_name
+        description: "Anonymized company name."
+        tests:
+          - not_null
+      - name: scope_coverage
+        description: "Covered emissions perimeter. Always Scope 1+2 in this dataset."
+        tests:
+          - not_null
+      - name: sbti_validated
+        description: "Declared SBTi-aligned (TRUE/FALSE)."
+        tests:
+          - not_null
+      - name: reduction_pct
+        description: "Target reduction parcentage vs. baseline's (e.g. 0.42 = -42%)."
+        tests:
+          - not_null
+      - name: baseline_year
+        description: "Baseline year of the reduction plan."
+        tests:
+          - not_null
+      - name: target_year
+        description: "Target year for the reduction commitment."
+        tests:
+          - not_null
+      - name: year
+        description: "Year of trajectory point."
+        tests:
+          - not_null
+      - name: expected_emissions_tco2e
+        description: "Planned emissions for that year according to linear trajectory."
+        tests:
+          - not_null
+      - name: actual_emissions_tco2e
+        description: >
+          Actual measured emissions for that year, scoped to scope_coverage (Scope 1+2).
+          NULL for trajectory years beyond the latest reported emissions year (forward-looking
+          forecast points with no actuals yet). See has_reported_actuals.
+        tests:
+          - not_null:
+              config:
+                where: "has_reported_actuals = true"
+      - name: gap_tco2e
+        description: >
+          Difference between actual and expected emissions (positive = behind schedule, negative = ahead of schedule).
+          NULL for trajectory years beyond the latest reported emissions year (forward-looking
+          forecast points with no actuals yet). See has_reported_actuals.
+        tests:
+          - not_null:
+              config:
+                where: "has_reported_actuals = true"
+      - name: is_on_track
+        description: "TRUE if actual emissions <= expected trajectory for that year."
+        tests:
+          - accepted_values:
+              values: [true, false]
+      - name: total_initiative_reduction
+        description: >
+          Sum of estimated_reduction across all non-orphan initiatives linked to this target.
+          bottom_up_group excluded to avoid double counting with bottom_up_child.
+        tests:
+          - not_null
+      - name: has_reported_actuals
+        description: >
+          TRUE if this trajectory year is within the reported emissions window (i.e. actual
+          data could exist for it). FALSE for forward-looking forecast years beyond the
+          latest year present in stg_emissions.
+        tests:
+          - not_null
+          - accepted_values:
+              values: [true, false]
