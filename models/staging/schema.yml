@@ -55,7 +55,6 @@ models:
               arguments:
                 min_value: 2019
                 max_value: 2050
-
   - name: stg_emissions
     description: "Emissions per companies, year, scope and category. Grain : company_id x year x scope x category."
     tests:
@@ -113,7 +112,7 @@ models:
               arguments:
                 values: [true, false]
       - name: is_negative_emission
-        description: "TRUE if emissions_tco2e is negative. May be legitimate (carbon sequestration, accounting corrections) — requires business validation."
+        description: "TRUE if emissions_tco2e is negative. May be legitimate (carbon sequestration, accounting corrections). It requires business validation."
         tests:
           - not_null
           - accepted_values:
@@ -133,7 +132,6 @@ models:
           - accepted_values:
               arguments:
                 values: [true, false]
-
   - name: stg_target_trajectory
     description: "Expected trajectory reduction per target and year. Grain : target_id x year."
     tests:
@@ -205,7 +203,6 @@ models:
           - accepted_values:
               arguments:
                 values: [true, false]
-
   - name: stg_initiatives
     description: "Reduction initiatives per company and target. Grain : initiative_id."
     columns:

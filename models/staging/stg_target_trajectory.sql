@@ -1,4 +1,4 @@
--- Grain : target_id × year (1 ligne per target and year of trajectory point)
+-- Grain : target_id x year (1 ligne per target and year of trajectory point)
 -- Source : target_trajectory
 -- Data quality issues handled:
 --   - Flags: is_orphan_company

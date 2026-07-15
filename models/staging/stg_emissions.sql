@@ -1,4 +1,4 @@
--- Grain : company_id × year × scope × category
+-- Grain : company_id x year x scope x category
 -- Source : emissions
 -- Data quality issues handled:
 --   - kgCO2e to tCO2e conversion
@@ -15,7 +15,15 @@ normalized AS (
         CAST(company_id AS VARCHAR)                 AS company_id,
         CAST(year AS INTEGER)                       AS year,
         CAST(scope AS INTEGER)                      AS scope,
-        CAST(LOWER(TRIM(category)) AS VARCHAR)      AS category,
+
+        -- Category normalisations
+        CASE
+            WHEN LOWER(TRIM(category)) = 'electricity'
+            THEN 'purchased electricity'
+            WHEN LOWER(TRIM(category)) = 'travel'
+            THEN 'business travel'
+            ELSE LOWER(TRIM(category))
+        END                                         AS category,
 
         -- Unit normalisation kgCO2e to tCO2e
         CASE
