@@ -161,25 +161,25 @@ The project follows a standard dbt layered architecture (staging → marts) for 
 
 ### 1. Staging layer
 
-- companies staging model (`stg_companies.sql`)
+#### companies staging model (`stg_companies.sql`)
 
 | Model justification | Tests justification |
 |---|---|
 | The source is already clean, so the transformation is limited to casting and renaming: dbt/DuckDB infers types from the seeded CSV, but that inference can vary depending on the target database, so an explicit `CAST` guarantees the exact type regardless of which warehouse sits behind the adapter. | Tests stay proportionate to the risk: `unique` + `not_null` on `company_id` enforce the primary key, and the same pair on `company_name` catches an unexpected homonym or a duplicated seed row. `string_length` is applied to every string column as a defensive floor/ceiling against empty strings or abnormally long values due to a badly parsed CSV row. `sector` and `country` only get `not_null` — with just 8 companies, an `accepted_values` list would be brittle and not worth maintaining as new companies are onboarded. `base_year` gets `not_null` plus `dbt_utils.accepted_range` bounded to [2019, 2050], consistent with the years observed in `target_trajectory`. It's a sanity check rather than a strict business rule. |
 
-- emissions staging model (`stg_emissions.sql`)
+#### emissions staging model (`stg_emissions.sql`)
 
 | Model justification | Tests justification |
 |---|---|
 | This is the most complex source, so the staging layer does more than casting: `category` is lowercased and trimmed to avoid case-sensitivity duplicates downstream, and inconsistent labels (`electricity` → `purchased electricity`, `travel` → `business travel`) are standardized to their canonical form. Moreover `emissions_tco2e` values recorded in kgCO2e are converted to tCO2e via `CASE WHEN unit = 'kgCO2e'` so the whole column ends up expressed in a single unit. Exact duplicates on the grain (`company_id × year × scope × category`) are removed with a `ROW_NUMBER()` window ordered by `emissions_tco2e DESC NULLS LAST`, so that when a duplicate pair has one null and one populated value, the populated one is the row kept rather than an arbitrary one. All other quality issues (null emissions, negative emissions, invalid year, invalid scope) are not filtered out here: they are flagged with boolean columns (`is_null_emission`, `is_negative_emission`, `is_invalid_year`, `is_invalid_scope`) so the row survives to staging and the exclusion decision is made explicitly in the marts layer, where the analytical context is clear. | `dbt_utils.unique_combination_of_columns` on the grain confirms the deduplication actually worked. `relationships` checks `company_id` against `stg_companies` to catch referential-integrity issues early. `accepted_values` on `scope` and the conditional `not_null` on `emissions_tco2e` are both scoped with a `where: is_invalid_scope = false` / `where: is_null_emission = false` clause. It lets the known bad row pass without failing the whole test suite, while still catching any *new*, unflagged bad row a future source refresh might introduce. Each `is_*` flag is itself tested with `accepted_values: [true, false]` as a basic boolean sanity check. |
 
-- target_trajectory staging model (`stg_target_trajectory.sql`)
+#### target_trajectory staging model (`stg_target_trajectory.sql`)
 
 | Model justification | Tests justification |
 |---|---|
 | The source is already fairly clean, so like `companies`, the transformation is mostly casting and renaming. The one addition is `is_orphan_company`, computed with a `NOT IN` subquery against the `companies` **source** rather than `ref('stg_companies')`. Indeed staging models are kept independent from one another and only depend on sources, so the DAG stays flat and each staging model can be built or tested in isolation. | Tests mirror the exploration findings: `dbt_utils.unique_combination_of_columns` on `target_id × year` confirms the grain, and `relationships` on `company_id` is scoped with `where: is_orphan_company = false` to tolerate the one known orphan (`CO-999`) while still catching any unexpected one. `dbt_utils.accepted_range` bounds `reduction_pct` to [0, 1] and `expected_emissions_tco2e` to non-negative values. Unlike `emissions_tco2e` in the emissions model, no flag was introduced for negative planned emissions, since a negative *target* trajectory value has no plausible business meaning and should hard-fail rather than be silently tolerated. `accepted_values` on `scope_coverage` locks down the set of scope combinations observed during exploration, and on `sbti_validated` as a boolean check. |
 
-- initiatives staging model (`stg_initiatives.sql`)
+#### initiatives staging model (`stg_initiatives.sql`)
 
 | Model justification | Tests justification |
 |---|---|
@@ -187,7 +187,7 @@ The project follows a standard dbt layered architecture (staging → marts) for 
 
 ### 2. Mart layer
 
-#### emissions mart model
+#### emissions mart model (`fct_emissions.sql`)
 
 This mart provides a clean, company-enriched view of the raw emissions data, intended as the base table for footprint analysis (by company, sector, scope, category, or trend over time).
 
@@ -201,7 +201,7 @@ The grain is `company_id x year x scope x category` that is one row per reported
 
 - **`years_since_baseline`** = `year - base_year`, letting emissions trajectories be compared across companies on a common time axis relative to their own baseline (though in this dataset `base_year` is uniformly 2019 for every company).
 
-#### company_target_status mart model
+#### company_target_status mart model (`fct_company_target_status.sql`)
 
 This mart is purposedly built to check whether companies are on track to meet their reduction targets.
 
@@ -213,7 +213,7 @@ It joins four staging models:
   - `bottom_up_group` rows are excluded to avoid double counting with their `bottom_up_child` initiatives
   - Orphan initiatives (linked to non-existent targets like `TGT-999`) are excluded
 
-The grain is `target_id × year` — one row per target per trajectory year. The key computed columns are:
+The grain is `target_id x year` — one row per target per trajectory year. The key computed columns are:
 
 - **`actual_emissions_tco2e`** — actual Scope 1+2 emissions for that company and year
 - **`gap_tco2e`** — difference between actual and expected emissions. A positive gap means the company is emitting more than planned (behind schedule). A negative gap means it is ahead of schedule.
