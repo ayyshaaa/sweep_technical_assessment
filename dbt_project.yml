@@ -17,6 +17,6 @@ models:
   carbon_footprint:
     staging:
       +materialized: view
-    # marts:
-    #   +materialized: table
+    marts:
+      +materialized: table
 
